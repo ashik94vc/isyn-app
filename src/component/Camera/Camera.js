@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {RNCamera} from 'react-native-camera'
 import {create} from 'apisauce'
 import styles from './styles'
+import TTS from 'react-native-tts'
 import FetchBlob from 'react-native-fetch-blob'
 import {View, Text, ToastAndroid} from 'react-native'
 
@@ -30,6 +31,15 @@ export default class CameraView extends Component {
         )
     }
 
+    getFirstTwoLabels(response) {
+        const data = response.data.results
+        let first_data = data[0].description
+        let second_data = data[Math.floor(Math.random() * (data.length - 1)) + 1].description
+        let message = "I see a "+first_data+" or "+second_data 
+        ToastAndroid.show(message, ToastAndroid.SHORT)
+        TTS.speak(message)
+    } 
+
     async snapPicture() {
         const data = await this.camera.takePictureAsync()
         let form = new FormData()
@@ -40,7 +50,7 @@ export default class CameraView extends Component {
         })
         const headers = { 'Content-Type': 'multipart/form-data' }
         const backendResponse = await this.api.post('/image', form, {headers})
-        console.tron.log(backendResponse)
+        this.getFirstTwoLabels(backendResponse)
     }
 
     componentDidMount() {

@@ -3,6 +3,7 @@ package com.ashikvetrivelu.isyn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import net.no_mad.tts.TextToSpeechPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
 import fr.snapp.imagebase64.RNImgToBase64Package;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TextToSpeechPackage(),
             new RNFetchBlobPackage(),
             new RNFSPackage(),
             new RNImgToBase64Package(),
